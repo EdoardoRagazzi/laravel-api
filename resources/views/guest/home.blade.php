@@ -17,6 +17,9 @@
         </style>
     </head>
     <body>
+        <div id="root">
+
+        
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
@@ -31,7 +34,7 @@
                     @endauth
                 </div>
             @endif
-
+        </div>
            <script src="{{asset('js/front.js')}}"></script>
     </body>
 </html>

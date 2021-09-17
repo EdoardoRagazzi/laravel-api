@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Post;
 
 class PostController extends Controller
 {
@@ -15,6 +16,6 @@ class PostController extends Controller
         return response()->json([
             'success' => 'true',
             'results' => $posts
-        ])
+        ]);
     }
 }
