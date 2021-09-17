@@ -2263,6 +2263,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Main',
   data: function data() {
@@ -2274,13 +2277,17 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   created: function created() {
-    this.getPosts();
+    this.getPosts(1);
   },
   methods: {
-    getPosts: function getPosts() {
+    getPosts: function getPosts(pagePost) {
       var _this = this;
 
-      axios.get(this.callApi).then(function (response) {
+      axios.get(this.callApi, {
+        params: {
+          page: pagePost
+        }
+      }).then(function (response) {
         _this.posts = response.data.results.data;
         _this.currentPage = response.data.results.current_page;
         _this.lastPage = response.data.results.last_page;
@@ -38112,31 +38119,58 @@ var render = function() {
       )
     ]),
     _vm._v(" "),
-    _vm._m(0)
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("nav", { attrs: { "aria-label": "Page navigation example" } }, [
+    _c("nav", { attrs: { "aria-label": "Page navigation example" } }, [
       _c("ul", { staticClass: "pagination" }, [
-        _c("li", { staticClass: "page-item" }, [
-          _c("button", { staticClass: "page-link", attrs: { href: "#" } }, [
-            _vm._v("Previous")
-          ])
-        ]),
+        _c(
+          "li",
+          {
+            staticClass: "page-item",
+            class: { disabled: _vm.currentPage == 1 }
+          },
+          [
+            _c(
+              "button",
+              {
+                staticClass: "page-link",
+                attrs: { href: "#" },
+                on: {
+                  click: function($event) {
+                    return _vm.getPosts(_vm.currentPage - 1)
+                  }
+                }
+              },
+              [_vm._v("Previous")]
+            )
+          ]
+        ),
         _vm._v(" "),
-        _c("li", { staticClass: "page-item" }, [
-          _c("button", { staticClass: "page-link", attrs: { href: "#" } }, [
-            _vm._v("Next")
-          ])
-        ])
+        _c(
+          "li",
+          {
+            staticClass: "page-item",
+            class: { disabled: _vm.currentPage == _vm.lastPage }
+          },
+          [
+            _c(
+              "button",
+              {
+                staticClass: "page-link",
+                attrs: { href: "#" },
+                on: {
+                  click: function($event) {
+                    return _vm.getPosts(_vm.currentPage + 1)
+                  }
+                }
+              },
+              [_vm._v("Next")]
+            )
+          ]
+        )
       ])
     ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
